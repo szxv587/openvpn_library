@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
@@ -68,6 +69,7 @@ public class OpenVPNThread implements Runnable {
     public void run() {
         try {
             Log.i(TAG, "Starting openvpn");
+            Log.i(TAG, Arrays.toString(mArgv));
             startOpenVPNThreadArgs(mArgv);
             Log.i(TAG, "OpenVPN process exited");
         } catch (Exception e) {
@@ -198,6 +200,7 @@ public class OpenVPNThread implements Runnable {
                 }
             }
         } catch (InterruptedException | IOException e) {
+            Log.e(TAG, "songzixuan: "+e.toString());
             VpnStatus.logException("Error reading from output of OpenVPN process", e);
             stopProcess();
         }
