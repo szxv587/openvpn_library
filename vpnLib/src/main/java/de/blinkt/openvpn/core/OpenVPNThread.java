@@ -155,11 +155,14 @@ public class OpenVPNThread implements Runnable {
 
         pb.redirectErrorStream(true);
         try {
+            Log.i(TAG, "11111");
             mProcess = pb.start();
             // Close the output, since we don't need it
 //            mProcess.getOutputStream().close();
+            Log.i(TAG, "22222");
             InputStream in = mProcess.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            Log.i(TAG, "33333");
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.startsWith(DUMP_PATH_STRING))
@@ -205,8 +208,9 @@ public class OpenVPNThread implements Runnable {
                     throw new InterruptedException("OpenVpn process was killed form java code");
                 }
             }
+            Log.i(TAG, "44444");
         } catch (InterruptedException | IOException e) {
-            Log.e(TAG, "songzixuan: "+e.toString());
+            Log.e(TAG, "songzixuan: "+e.getMessage());
             VpnStatus.logException("Error reading from output of OpenVPN process", e);
             stopProcess();
         }
