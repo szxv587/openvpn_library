@@ -83,6 +83,7 @@ public class OpenVPNThread implements Runnable {
             try {
                 if (mProcess != null)
                     exitvalue = mProcess.waitFor();
+                Log.i(TAG, "111");
             } catch (IllegalThreadStateException ite) {
                 Log.e(TAG, "songzixuan: "+ite.getMessage());
                 VpnStatus.logError("Illegal Thread state: " + ite.getLocalizedMessage());
@@ -90,14 +91,18 @@ public class OpenVPNThread implements Runnable {
                 Log.e(TAG, "songzixuan: "+ie.getMessage());
                 VpnStatus.logError("InterruptedException: " + ie.getLocalizedMessage());
             }
+            Log.i(TAG, "222");
             if (exitvalue != 0) {
+                Log.i(TAG, "333");
                 VpnStatus.logError("Process exited with exit value " + exitvalue);
                 if (mBrokenPie) {
+                    Log.i(TAG, "444");
                     /* This will probably fail since the NoPIE binary is probably not written */
                     String[] noPieArgv = VPNLaunchHelper.replacePieWithNoPie(mArgv);
 
                     // We are already noPIE, nothing to gain
                     if (!noPieArgv.equals(mArgv)) {
+                        Log.i(TAG, "555");
                         mArgv = noPieArgv;
                         VpnStatus.logInfo("PIE Version could not be executed. Trying no PIE version");
                         run();
@@ -108,10 +113,13 @@ public class OpenVPNThread implements Runnable {
             }
 
             if (!mNoProcessExitStatus)
+                Log.i(TAG, "666");
                 VpnStatus.updateStateString("NOPROCESS", "No process running.", R.string.state_noprocess, ConnectionStatus.LEVEL_NOTCONNECTED);
 
             if (mDumpPath != null) {
+                Log.i(TAG, "777");
                 try {
+                    Log.i(TAG, "888");
                     BufferedWriter logout = new BufferedWriter(new FileWriter(mDumpPath + ".log"));
                     SimpleDateFormat timeformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMAN);
                     for (LogItem li : VpnStatus.getlogbuffer()) {
@@ -125,7 +133,7 @@ public class OpenVPNThread implements Runnable {
                     VpnStatus.logError("Writing minidump log: " + e.getLocalizedMessage());
                 }
             }
-
+            Log.i(TAG, "999");
             if (!mNoProcessExitStatus)
                 mService.openvpnStopped();
             Log.i(TAG, "Exiting");
