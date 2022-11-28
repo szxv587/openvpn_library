@@ -175,6 +175,7 @@ public class OpenVPNThread implements Runnable {
             Log.i(TAG, "33333");
             String line;
             while ((line = br.readLine()) != null) {
+                Log.i(TAG, "888: line == "+line);
                 if (line.startsWith(DUMP_PATH_STRING))
                     mDumpPath = line.substring(DUMP_PATH_STRING.length());
 
