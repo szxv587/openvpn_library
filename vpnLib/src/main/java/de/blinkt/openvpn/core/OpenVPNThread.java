@@ -68,9 +68,11 @@ public class OpenVPNThread implements Runnable {
     @Override
     public void run() {
         try {
+            Log.i(TAG, "11111111111111111111");
             Log.i(TAG, "Starting openvpn");
-            Log.i(TAG, Arrays.toString(mArgv));
+            Log.i(TAG, "songzixuan: "+Arrays.toString(mArgv));
             startOpenVPNThreadArgs(mArgv);
+            Log.i(TAG, "22222222222222222222");
             Log.i(TAG, "OpenVPN process exited");
         } catch (Exception e) {
             VpnStatus.logException("Starting OpenVPN Thread", e);
