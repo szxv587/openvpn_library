@@ -78,13 +78,16 @@ public class OpenVPNThread implements Runnable {
             VpnStatus.logException("Starting OpenVPN Thread", e);
             Log.e(TAG, "OpenVPNThread Got " + e.toString());
         } finally {
+            Log.e(TAG, "33333333333333333");
             int exitvalue = 0;
             try {
                 if (mProcess != null)
                     exitvalue = mProcess.waitFor();
             } catch (IllegalThreadStateException ite) {
+                Log.e(TAG, "songzixuan: "+ite.getMessage());
                 VpnStatus.logError("Illegal Thread state: " + ite.getLocalizedMessage());
             } catch (InterruptedException ie) {
+                Log.e(TAG, "songzixuan: "+ie.getMessage());
                 VpnStatus.logError("InterruptedException: " + ie.getLocalizedMessage());
             }
             if (exitvalue != 0) {
@@ -118,6 +121,7 @@ public class OpenVPNThread implements Runnable {
                     logout.close();
                     VpnStatus.logError(R.string.minidump_generated);
                 } catch (IOException e) {
+                    Log.e(TAG, "songzixuan: "+e.getMessage());
                     VpnStatus.logError("Writing minidump log: " + e.getLocalizedMessage());
                 }
             }
